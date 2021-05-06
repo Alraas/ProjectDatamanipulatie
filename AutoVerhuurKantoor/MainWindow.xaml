@@ -21,6 +21,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -43,11 +47,21 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Auto" Grid.Row="2" Grid.Column="0" Margin="5"/>
-        <Button x:Name="btnAutoTovoegen" Content="Auto tovoegen" Grid.Row="3" Grid.Column="0" Margin="5" />
+        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Autos" Grid.Row="3" Grid.Column="0" Margin="5" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnAutoTovoegen" Content="Auto tovoegen" Grid.Row="4" Grid.Column="1" Margin="5" />
         <Button x:Name="btnAutoVerwijderen" Content="Auto verwijderen" Grid.Row="4" Grid.Column="0" Margin="5" Background="OrangeRed" />
-        <Button x:Name="btnNieuweVerhuur" Content="Nieuwe Verhuur" Grid.Row="3" Grid.Column="1" Margin="5" />
-        <Button x:Name="btnVerhuurVerwijderen" Content="Verhuur verwijderen" Grid.Row="4" Grid.Column="1" Margin="5" Background="OrangeRed"/>
-
+        <Button x:Name="btnNieuweVerhuur" Content="Nieuwe Verhuur" Grid.Row="2" Grid.Column="1" Margin="5" />
+        <Button x:Name="btnVerhuurVerwijderen" Content="Verhuur verwijderen" Grid.Row="2"  Margin="5" Background="OrangeRed"/>
+        <TextBox x:Name="txtAutoId"   materialDesign:HintAssist.Hint="Auto Id"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="5"/>
+        <TextBox x:Name="txtAutoModel"   materialDesign:HintAssist.Hint="Auto merk"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" Margin="5"/>
+        <TextBox x:Name="txtAutoJaar"   materialDesign:HintAssist.Hint="Auto jaar"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Margin="5"/>
+        <Button x:Name="btnAutoBijwerken" Content="Auto bijwerken" Grid.Row="6" Grid.Column="1" Margin="5" />
+        
     </Grid>
 </Window>

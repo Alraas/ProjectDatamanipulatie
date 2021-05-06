@@ -149,7 +149,7 @@
           <Property Name="Adress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Postcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Agency_Car" Relationship="Self.FK_Agency_Car_Agencies" FromRole="Agencies" ToRole="Agency_Car" />
+          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Agencies" FromRole="Agencies" ToRole="Agency_Car" />
         </EntityType>
         <EntityType Name="Agency_Car">
           <Key>
@@ -171,7 +171,7 @@
           <Property Name="car_id" Type="Int32" Nullable="false" />
           <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="year" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Agency_Car" Relationship="Self.FK_Agency_Car_Cars" FromRole="Cars" ToRole="Agency_Car" />
+          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Cars" FromRole="Cars" ToRole="Agency_Car" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -193,7 +193,7 @@
           <Property Name="agency_car_id" Type="Int32" Nullable="false" />
           <Property Name="startDdate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="endDate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Agency_Car" Relationship="Self.FK_Agency_Car_Rental" FromRole="Rental" ToRole="Agency_Car" />
+          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Rental" FromRole="Rental" ToRole="Agency_Car" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Rental_Customers" FromRole="Rental" ToRole="Customers" />
         </EntityType>
         <EntityType Name="sysdiagram">

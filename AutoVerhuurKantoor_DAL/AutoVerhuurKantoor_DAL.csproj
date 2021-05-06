@@ -114,5 +114,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoVerhuurKantoor_Model\AutoVerhuurKantoor_Model.csproj">
+      <Project>{c88ca528-28bb-49c3-b04f-3ba705eae5ae}</Project>
+      <Name>AutoVerhuurKantoor_Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

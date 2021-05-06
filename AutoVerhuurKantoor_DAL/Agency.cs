@@ -17,7 +17,7 @@ namespace AutoVerhuurKantoor_DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Agency()
         {
-            this.Agency_Car = new HashSet<Agency_Car>();
+            this.Agency_Cars = new HashSet<Agency_Car>();
         }
     
         public int Agency_id { get; set; }
@@ -27,6 +27,6 @@ namespace AutoVerhuurKantoor_DAL
         public string Postcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Agency_Car> Agency_Car { get; set; }
+        public virtual ICollection<Agency_Car> Agency_Cars { get; set; }
     }
 }
