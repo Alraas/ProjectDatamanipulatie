@@ -21,11 +21,20 @@ namespace AutoVerhuurKantoor_DAL
                 {
                     return "Startdatum moet bepaald  zijn";
                 }
+                if (columnName == "endDate" && endDate.HasValue == false)
+                {
+                    return "Enddatum moet bepaald  zijn";
+                }
                 if (columnName == "endDate" && endDate.Value < startDdate)
                 {
                     return "Einddatum moet na het startdatum zijn";
                 }
-                
+                if (columnName == "startDdate" && startDdate.Value < DateTime.Today)
+                {
+                    return "Startdatum moet na het datum van vandaag zijn";
+                }
+
+
 
                 return "";
             }
