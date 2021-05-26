@@ -48,14 +48,14 @@ namespace AutoVerhuurKantoor
                 Customer klant = cmbKlanten.SelectedItem as Customer;
                 Rental verhuur = new Rental();
                 Agency kantoor = cmbKlanten.SelectedItem as Agency;
-                Agency_Car agency_Car = DatabaseOperations.OphalenAgencyCarViaCArIDEnAgencyID(auto.car_id, kantoor.Agency_id);
+                Agency_Car kantoor_auto = DatabaseOperations.OphalenAgencyCarViaCArIDEnAgencyID(auto.car_id, kantoor.Agency_id);
 
                
 
 
                 
                 verhuur.customer_id = klant.customer_id;
-                verhuur.agency_car_id = kantoor.Agency_id;
+                verhuur.agency_car_id = kantoor_auto.agency_car_id;
                 verhuur.startDdate = pickStartDatum.SelectedDate;
                 verhuur.endDate = pickEindDatum.SelectedDate;
 
