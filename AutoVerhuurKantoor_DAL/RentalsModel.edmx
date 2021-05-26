@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RentalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RentalsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Agencies">
           <Key>
             <PropertyRef Name="Agency_id" />
           </Key>
-          <Property Name="Agency_id" Type="int" Nullable="false" />
+          <Property Name="Agency_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="Adress" Type="nvarchar" MaxLength="60" />
           <Property Name="City" Type="nvarchar" MaxLength="15" />
@@ -19,25 +19,24 @@
           <Key>
             <PropertyRef Name="agency_car_id" />
           </Key>
-          <Property Name="agency_car_id" Type="int" Nullable="false" />
+          <Property Name="agency_car_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="agency_id" Type="int" Nullable="false" />
           <Property Name="car_id" Type="int" Nullable="false" />
-          <Property Name="rental_id" Type="int" Nullable="false" />
-          <Property Name="pricePerNight" Type="int" Nullable="false" />
+          <Property Name="pricePerNight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Cars">
           <Key>
             <PropertyRef Name="car_id" />
           </Key>
-          <Property Name="car_id" Type="int" Nullable="false" />
+          <Property Name="car_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="model" Type="varchar" MaxLength="30" />
-          <Property Name="year" Type="varchar" MaxLength="30" />
+          <Property Name="year" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="customer_id" />
           </Key>
-          <Property Name="customer_id" Type="int" Nullable="false" />
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="lname" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="fname" Type="nvarchar" MaxLength="60" />
           <Property Name="phone_number" Type="nvarchar" MaxLength="60" />
@@ -47,11 +46,11 @@
           <Key>
             <PropertyRef Name="rental_id" />
           </Key>
-          <Property Name="rental_id" Type="int" Nullable="false" />
+          <Property Name="rental_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customer_id" Type="int" Nullable="false" />
           <Property Name="agency_car_id" Type="int" Nullable="false" />
-          <Property Name="startDdate" Type="varchar" MaxLength="30" />
-          <Property Name="endDate" Type="varchar" MaxLength="30" />
+          <Property Name="startDdate" Type="date" />
+          <Property Name="endDate" Type="date" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -87,15 +86,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Agency_Car_Rental">
-          <End Role="Rental" Type="Self.Rental" Multiplicity="1" />
-          <End Role="Agency_Car" Type="Self.Agency_Car" Multiplicity="*" />
+        <Association Name="FK_Rental_Agency_Car">
+          <End Role="Agency_Car" Type="Self.Agency_Car" Multiplicity="1" />
+          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Rental">
-              <PropertyRef Name="rental_id" />
+            <Principal Role="Agency_Car">
+              <PropertyRef Name="agency_car_id" />
             </Principal>
-            <Dependent Role="Agency_Car">
-              <PropertyRef Name="rental_id" />
+            <Dependent Role="Rental">
+              <PropertyRef Name="agency_car_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -126,91 +125,113 @@
             <End Role="Cars" EntitySet="Cars" />
             <End Role="Agency_Car" EntitySet="Agency_Car" />
           </AssociationSet>
-          <AssociationSet Name="FK_Agency_Car_Rental" Association="Self.FK_Agency_Car_Rental">
-            <End Role="Rental" EntitySet="Rental" />
+          <AssociationSet Name="FK_Rental_Agency_Car" Association="Self.FK_Rental_Agency_Car">
             <End Role="Agency_Car" EntitySet="Agency_Car" />
+            <End Role="Rental" EntitySet="Rental" />
           </AssociationSet>
           <AssociationSet Name="FK_Rental_Customers" Association="Self.FK_Rental_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Rental" EntitySet="Rental" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RentalsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="RentalsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agencies" EntityType="RentalsModel.Agency" />
+          <EntitySet Name="Agency_Car" EntityType="RentalsModel.Agency_Car" />
+          <EntitySet Name="Cars" EntityType="RentalsModel.Car" />
+          <EntitySet Name="Customers" EntityType="RentalsModel.Customer" />
+          <EntitySet Name="Rentals" EntityType="RentalsModel.Rental" />
+          <EntitySet Name="sysdiagrams" EntityType="RentalsModel.sysdiagram" />
+          <AssociationSet Name="FK_Agency_Car_Agencies" Association="RentalsModel.FK_Agency_Car_Agencies">
+            <End Role="Agency" EntitySet="Agencies" />
+            <End Role="Agency_Car" EntitySet="Agency_Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Agency_Car_Cars" Association="RentalsModel.FK_Agency_Car_Cars">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Agency_Car" EntitySet="Agency_Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Agency_Car" Association="RentalsModel.FK_Rental_Agency_Car">
+            <End Role="Agency_Car" EntitySet="Agency_Car" />
+            <End Role="Rental" EntitySet="Rentals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rental_Customers" Association="RentalsModel.FK_Rental_Customers">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Rental" EntitySet="Rentals" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Agency">
           <Key>
             <PropertyRef Name="Agency_id" />
           </Key>
-          <Property Name="Agency_id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Agency_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="Adress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Postcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Agencies" FromRole="Agencies" ToRole="Agency_Car" />
+          <NavigationProperty Name="Agency_Cars" Relationship="RentalsModel.FK_Agency_Car_Agencies" FromRole="Agency" ToRole="Agency_Car" />
         </EntityType>
         <EntityType Name="Agency_Car">
           <Key>
             <PropertyRef Name="agency_car_id" />
           </Key>
-          <Property Name="agency_car_id" Type="Int32" Nullable="false" />
+          <Property Name="agency_car_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="agency_id" Type="Int32" Nullable="false" />
           <Property Name="car_id" Type="Int32" Nullable="false" />
-          <Property Name="rental_id" Type="Int32" Nullable="false" />
-          <Property Name="pricePerNight" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Agency" Relationship="Self.FK_Agency_Car_Agencies" FromRole="Agency_Car" ToRole="Agencies" />
-          <NavigationProperty Name="Car" Relationship="Self.FK_Agency_Car_Cars" FromRole="Agency_Car" ToRole="Cars" />
-          <NavigationProperty Name="Rental" Relationship="Self.FK_Agency_Car_Rental" FromRole="Agency_Car" ToRole="Rental" />
+          <Property Name="pricePerNight" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Agency" Relationship="RentalsModel.FK_Agency_Car_Agencies" FromRole="Agency_Car" ToRole="Agency" />
+          <NavigationProperty Name="Car" Relationship="RentalsModel.FK_Agency_Car_Cars" FromRole="Agency_Car" ToRole="Car" />
+          <NavigationProperty Name="Rentals" Relationship="RentalsModel.FK_Rental_Agency_Car" FromRole="Agency_Car" ToRole="Rental" />
         </EntityType>
         <EntityType Name="Car">
           <Key>
             <PropertyRef Name="car_id" />
           </Key>
-          <Property Name="car_id" Type="Int32" Nullable="false" />
+          <Property Name="car_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="year" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Cars" FromRole="Cars" ToRole="Agency_Car" />
+          <Property Name="year" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agency_Cars" Relationship="RentalsModel.FK_Agency_Car_Cars" FromRole="Car" ToRole="Agency_Car" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="customer_id" />
           </Key>
-          <Property Name="customer_id" Type="Int32" Nullable="false" />
-          <Property Name="lname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lname" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="fname" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="phone_number" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Rentals" Relationship="Self.FK_Rental_Customers" FromRole="Customers" ToRole="Rental" />
+          <NavigationProperty Name="Rentals" Relationship="RentalsModel.FK_Rental_Customers" FromRole="Customer" ToRole="Rental" />
         </EntityType>
         <EntityType Name="Rental">
           <Key>
             <PropertyRef Name="rental_id" />
           </Key>
-          <Property Name="rental_id" Type="Int32" Nullable="false" />
+          <Property Name="rental_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customer_id" Type="Int32" Nullable="false" />
           <Property Name="agency_car_id" Type="Int32" Nullable="false" />
-          <Property Name="startDdate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="endDate" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Agency_Cars" Relationship="Self.FK_Agency_Car_Rental" FromRole="Rental" ToRole="Agency_Car" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Rental_Customers" FromRole="Rental" ToRole="Customers" />
+          <Property Name="startDdate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Agency_Car" Relationship="RentalsModel.FK_Rental_Agency_Car" FromRole="Rental" ToRole="Agency_Car" />
+          <NavigationProperty Name="Customer" Relationship="RentalsModel.FK_Rental_Customers" FromRole="Rental" ToRole="Customer" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Agency_Car_Agencies">
-          <End Role="Agencies" Type="Self.Agency" Multiplicity="1" />
-          <End Role="Agency_Car" Type="Self.Agency_Car" Multiplicity="*" />
+          <End Type="RentalsModel.Agency" Role="Agency" Multiplicity="1" />
+          <End Type="RentalsModel.Agency_Car" Role="Agency_Car" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Agencies">
+            <Principal Role="Agency">
               <PropertyRef Name="Agency_id" />
             </Principal>
             <Dependent Role="Agency_Car">
@@ -219,10 +240,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Agency_Car_Cars">
-          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
-          <End Role="Agency_Car" Type="Self.Agency_Car" Multiplicity="*" />
+          <End Type="RentalsModel.Car" Role="Car" Multiplicity="1" />
+          <End Type="RentalsModel.Agency_Car" Role="Agency_Car" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cars">
+            <Principal Role="Car">
               <PropertyRef Name="car_id" />
             </Principal>
             <Dependent Role="Agency_Car">
@@ -230,23 +251,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Agency_Car_Rental">
-          <End Role="Rental" Type="Self.Rental" Multiplicity="1" />
-          <End Role="Agency_Car" Type="Self.Agency_Car" Multiplicity="*" />
+        <Association Name="FK_Rental_Agency_Car">
+          <End Type="RentalsModel.Agency_Car" Role="Agency_Car" Multiplicity="1" />
+          <End Type="RentalsModel.Rental" Role="Rental" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Rental">
-              <PropertyRef Name="rental_id" />
+            <Principal Role="Agency_Car">
+              <PropertyRef Name="agency_car_id" />
             </Principal>
-            <Dependent Role="Agency_Car">
-              <PropertyRef Name="rental_id" />
+            <Dependent Role="Rental">
+              <PropertyRef Name="agency_car_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Rental_Customers">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Rental" Type="Self.Rental" Multiplicity="*" />
+          <End Type="RentalsModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="RentalsModel.Rental" Role="Rental" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
+            <Principal Role="Customer">
               <PropertyRef Name="customer_id" />
             </Principal>
             <Dependent Role="Rental">
@@ -254,31 +275,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RentalsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Agencies" EntityType="Self.Agency" />
-          <EntitySet Name="Agency_Car" EntityType="Self.Agency_Car" />
-          <EntitySet Name="Cars" EntityType="Self.Car" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Rentals" EntityType="Self.Rental" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="FK_Agency_Car_Agencies" Association="Self.FK_Agency_Car_Agencies">
-            <End Role="Agencies" EntitySet="Agencies" />
-            <End Role="Agency_Car" EntitySet="Agency_Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Agency_Car_Cars" Association="Self.FK_Agency_Car_Cars">
-            <End Role="Cars" EntitySet="Cars" />
-            <End Role="Agency_Car" EntitySet="Agency_Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Agency_Car_Rental" Association="Self.FK_Agency_Car_Rental">
-            <End Role="Rental" EntitySet="Rentals" />
-            <End Role="Agency_Car" EntitySet="Agency_Car" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Rental_Customers" Association="Self.FK_Rental_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Rental" EntitySet="Rentals" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -287,64 +284,63 @@
           <EntitySetMapping Name="Agencies">
             <EntityTypeMapping TypeName="RentalsModel.Agency">
               <MappingFragment StoreEntitySet="Agencies">
-                <ScalarProperty Name="Agency_id" ColumnName="Agency_id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Agency_id" ColumnName="Agency_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Agency_Car">
             <EntityTypeMapping TypeName="RentalsModel.Agency_Car">
               <MappingFragment StoreEntitySet="Agency_Car">
-                <ScalarProperty Name="agency_car_id" ColumnName="agency_car_id" />
-                <ScalarProperty Name="agency_id" ColumnName="agency_id" />
-                <ScalarProperty Name="car_id" ColumnName="car_id" />
-                <ScalarProperty Name="rental_id" ColumnName="rental_id" />
                 <ScalarProperty Name="pricePerNight" ColumnName="pricePerNight" />
+                <ScalarProperty Name="car_id" ColumnName="car_id" />
+                <ScalarProperty Name="agency_id" ColumnName="agency_id" />
+                <ScalarProperty Name="agency_car_id" ColumnName="agency_car_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cars">
             <EntityTypeMapping TypeName="RentalsModel.Car">
               <MappingFragment StoreEntitySet="Cars">
-                <ScalarProperty Name="car_id" ColumnName="car_id" />
-                <ScalarProperty Name="model" ColumnName="model" />
                 <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="car_id" ColumnName="car_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="RentalsModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
-                <ScalarProperty Name="lname" ColumnName="lname" />
-                <ScalarProperty Name="fname" ColumnName="fname" />
-                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rentals">
             <EntityTypeMapping TypeName="RentalsModel.Rental">
               <MappingFragment StoreEntitySet="Rental">
-                <ScalarProperty Name="rental_id" ColumnName="rental_id" />
-                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
-                <ScalarProperty Name="agency_car_id" ColumnName="agency_car_id" />
-                <ScalarProperty Name="startDdate" ColumnName="startDdate" />
                 <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDdate" ColumnName="startDdate" />
+                <ScalarProperty Name="agency_car_id" ColumnName="agency_car_id" />
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="rental_id" ColumnName="rental_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="RentalsModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

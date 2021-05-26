@@ -13,7 +13,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="NieuweVerhuur" Height="450" Width="800">
+        Title="NieuweVerhuur" Height="auto" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -30,23 +30,24 @@
         </Grid.ColumnDefinitions>
         <Label x:Name="lblKlant"  Content="Klant" HorizontalAlignment="Center"/>
         <ComboBox x:Name="cmbKlanten" materialDesign:HintAssist.Hint="Klanten" Grid.Row="1" Grid.Column="0" Margin="5" />
-        <materialDesign:PackIcon Kind="AccountPlus"  Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="40"/>
+        <materialDesign:PackIcon x:Name="btnNieuweKlant" Kind="AccountPlus"  Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="40" MouseDoubleClick="btnNieuweKlant_MouseDoubleClick"/>
         <Label x:Name="lblAutos"  Content="Autos" Grid.Column="1" HorizontalAlignment="Center"/>
-        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Autos" Grid.Row="1" Grid.Column="1" Margin="5" />
-        <materialDesign:PackIcon Kind="CarMultiple" Grid.Row="2" Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" Height="40" VerticalAlignment="Stretch" />
-        <TextBox x:Name="txtVerhuurID"   materialDesign:HintAssist.Hint="Verhuur ID"
+        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Autos" Grid.Row="1" Grid.Column="1" Margin="5" SelectionChanged="cmbAutos_SelectionChanged" />
+        <materialDesign:PackIcon x:Name="btnNieuweAuto" Kind="CarMultiple" Grid.Row="2" Grid.Column="1" Width="Auto" HorizontalAlignment="Stretch" Height="40" VerticalAlignment="Stretch" MouseDoubleClick="PackIcon_MouseDoubleClick" />
+        <!--<ComboBox x:Name="cmbKantoor" materialDesign:HintAssist.Hint="Kantoor" Grid.Row="3" Grid.Column="0" Margin="5" />-->
+        <TextBox x:Name="txtkantoor"   materialDesign:HintAssist.Hint="Prijs per nacht"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
-        <TextBox x:Name="txtStartDatum"   materialDesign:HintAssist.Hint="Startdatum"
-                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="5"/>
-        <TextBox x:Name="txtEindDatum"   materialDesign:HintAssist.Hint="Einddatum"
-                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5" />
+        <DatePicker
+                  x:Name="pickStartDatum" materialDesign:HintAssist.Hint="Startdatum"
+                  Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  Grid.Row="3" Grid.Column="1" Margin="5" VerticalAlignment="Stretch"/>
+        <DatePicker
+                  x:Name="pickEindDatum" materialDesign:HintAssist.Hint="Einddatum"
+                  Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Stretch"/>
         <TextBox x:Name="txtPrijsPerNacht"   materialDesign:HintAssist.Hint="Prijs per nacht"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Margin="5"/>
-        <Button x:Name="btnAanmaken" Content="Aanmaken" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Margin="5" IsEnabled="False"/>
+        <Button x:Name="btnAanmaken" Content="Aanmaken" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  Margin="5" Click="btnAanmaken_Click"/>
 
 
 

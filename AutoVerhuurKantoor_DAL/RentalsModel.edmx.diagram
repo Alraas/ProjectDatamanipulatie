@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6a59307a8bb6404aa471231b97f28f94" Name="Diagram1">
-        <EntityTypeShape EntityType="RentalsModel.Agency" Width="1.5" PointX="9.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentalsModel.Agency_Car" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentalsModel.Car" Width="1.5" PointX="2.25" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentalsModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentalsModel.Rental" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="RentalsModel.sysdiagram" Width="1.5" PointX="10" PointY="2.25" IsExpanded="true" />
-        <AssociationConnector Association="RentalsModel.FK_Agency_Car_Agencies" ManuallyRouted="false" />
-        <AssociationConnector Association="RentalsModel.FK_Agency_Car_Cars" ManuallyRouted="false" />
-        <AssociationConnector Association="RentalsModel.FK_Agency_Car_Rental" ManuallyRouted="false" />
-        <AssociationConnector Association="RentalsModel.FK_Rental_Customers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RentalsModel.Agency" Width="1.5" PointX="3.625" PointY="1.375" />
+        <EntityTypeShape EntityType="RentalsModel.Agency_Car" Width="1.5" PointX="6.125" PointY="1" />
+        <EntityTypeShape EntityType="RentalsModel.Car" Width="1.5" PointX="1.625" PointY="1.5" />
+        <EntityTypeShape EntityType="RentalsModel.Customer" Width="1.5" PointX="7.375" PointY="4.25" />
+        <EntityTypeShape EntityType="RentalsModel.Rental" Width="1.5" PointX="9.25" PointY="1" />
+        <EntityTypeShape EntityType="RentalsModel.sysdiagram" Width="1.5" PointX="10.375" PointY="5" />
+        <AssociationConnector Association="RentalsModel.FK_Agency_Car_Agencies" />
+        <AssociationConnector Association="RentalsModel.FK_Agency_Car_Cars" />
+        <AssociationConnector Association="RentalsModel.FK_Rental_Agency_Car" />
+        <AssociationConnector Association="RentalsModel.FK_Rental_Customers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

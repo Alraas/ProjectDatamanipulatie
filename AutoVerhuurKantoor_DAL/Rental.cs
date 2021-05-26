@@ -14,20 +14,13 @@ namespace AutoVerhuurKantoor_DAL
     
     public partial class Rental
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rental()
-        {
-            this.Agency_Car = new HashSet<Agency_Car>();
-        }
-    
         public int rental_id { get; set; }
         public int customer_id { get; set; }
         public int agency_car_id { get; set; }
-        public string startDdate { get; set; }
-        public string endDate { get; set; }
+        public Nullable<System.DateTime> startDdate { get; set; }
+        public Nullable<System.DateTime> endDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Agency_Car> Agency_Car { get; set; }
+        public virtual Agency_Car Agency_Car { get; set; }
         public virtual Customer Customer { get; set; }
     }
 }

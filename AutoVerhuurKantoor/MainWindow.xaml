@@ -13,11 +13,14 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="auto" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+
+            <RowDefinition />
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -30,38 +33,44 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txtNaam"   materialDesign:HintAssist.Hint="Naam"
+        <TextBox x:Name="txtVerhuur_ID"   materialDesign:HintAssist.Hint="verhuur ID"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                   VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
-        <Button x:Name="btnZoeken" Content="Zoek Klanten" Grid.Row="0" Grid.Column="1" Margin="5" />
-        <DataGrid x:Name="datagridWerknemers"  
+        <Button x:Name="btnFilterID" Content="Filter op ID" Grid.Row="0" Grid.Column="1" Margin="5" Click="btnZoekenRental_Click_2"   />
+        <Button x:Name="btnFilterNaam" Content="Filter op Naam" Grid.Row="1" Grid.Column="1" Margin="5" Click="btnFilterNaam_Click"    />
+        <Button x:Name="btnToonAlles" Content="Toon alles" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" Height="32" Click="btnToonAlles_Click"  />
+
+        <TextBox x:Name="txtNaam"   materialDesign:HintAssist.Hint="Naam"
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+
+        <DataGrid x:Name="datagridVerhuurs"  
                   AutoGenerateColumns="False" IsReadOnly="True"
-                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
+                  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="5">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding customer_id}" Header="Klant ID"/>
-                <DataGridTextColumn Binding="{Binding fname}" Header="Voornaam"/>
-                <DataGridTextColumn Binding="{Binding lname}" Header="Achternaam"/>
-                <DataGridTextColumn Binding="{Binding phone_number}" Header="GSM nummer"/>
-                <DataGridTextColumn Binding="{Binding email}" Header="email"/>
-                <DataGridTextColumn Binding="{Binding Rentals}" Header="Verhuur"/>
+                <DataGridTextColumn Binding="{Binding rental_id}" Header="Rental ID"/>
+                <DataGridTextColumn Binding="{Binding Customer}" Header="Klant"/>
+                <DataGridTextColumn Binding="{Binding startDdate}" Header="Begin datum"/>
+                <DataGridTextColumn Binding="{Binding endDate}" Header="Eind datum"/>
+
 
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Autos" Grid.Row="3" Grid.Column="0" Margin="5" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnAutoTovoegen" Content="Auto tovoegen" Grid.Row="4" Grid.Column="1" Margin="5" />
-        <Button x:Name="btnAutoVerwijderen" Content="Auto verwijderen" Grid.Row="4" Grid.Column="0" Margin="5" Background="OrangeRed" />
-        <Button x:Name="btnNieuweVerhuur" Content="Nieuwe Verhuur" Grid.Row="2" Grid.Column="1" Margin="5" />
-        <Button x:Name="btnVerhuurVerwijderen" Content="Verhuur verwijderen" Grid.Row="2"  Margin="5" Background="OrangeRed"/>
+        <ComboBox x:Name="cmbAutos" materialDesign:HintAssist.Hint="Autos" Grid.Row="4" Grid.Column="0" Margin="5" Grid.ColumnSpan="2" SelectionChanged="cmbAutos_SelectionChanged"/>
+        <Button x:Name="btnAutoTovoegen" Content="Auto tovoegen" Grid.Row="5" Grid.Column="1" Margin="5" Click="btnAutoTovoegen_Click" />
+        <Button x:Name="btnAutoVerwijderen" Content="Auto verwijderen" Grid.Row="5" Grid.Column="0" Margin="5" Background="OrangeRed" Click="btnAutoVerwijderen_Click" />
+        <Button x:Name="btnNieuweVerhuur" Content="Nieuwe Verhuur" Grid.Row="6" Grid.Column="1" Margin="5" Click="btnNieuweVerhuur_Click" />
+        <Button x:Name="btnVerhuurVerwijderen" Content="Verhuur verwijderen" Grid.Row="6"  Margin="5" Background="OrangeRed" Click="btnVerhuurVerwijderen_Click"/>
         <TextBox x:Name="txtAutoId"   materialDesign:HintAssist.Hint="Auto Id"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="7" Grid.Column="0" Margin="5" IsEnabled="False"/>
         <TextBox x:Name="txtAutoModel"   materialDesign:HintAssist.Hint="Auto merk"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="7" Grid.Column="1" Margin="5"/>
         <TextBox x:Name="txtAutoJaar"   materialDesign:HintAssist.Hint="Auto jaar"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="6" Grid.Column="0" Margin="5"/>
-        <Button x:Name="btnAutoBijwerken" Content="Auto bijwerken" Grid.Row="6" Grid.Column="1" Margin="5" />
-        
+                  VerticalAlignment="Center" Grid.Row="8" Grid.Column="0" Margin="5"/>
+        <Button x:Name="btnAutoBijwerken" Content="Auto bijwerken" Grid.Row="8" Grid.Column="1" Margin="5" Click="btnAutoBijwerken_Click" />
+
     </Grid>
 </Window>

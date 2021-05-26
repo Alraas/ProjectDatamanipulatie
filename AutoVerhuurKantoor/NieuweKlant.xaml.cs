@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoVerhuurKantoor_DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,49 @@ namespace AutoVerhuurKantoor
         public NieuweKlant()
         {
             InitializeComponent();
+        }
+
+        private void btnAanmaken_Click(object sender, RoutedEventArgs e)
+        {
+            
+                Customer klant = new Customer();
+                klant.lname = txtFamilieNaam.Text;
+                klant.fname = txtVoorNaam.Text;
+                klant.email = txtEmail.Text;
+                klant.phone_number = txtNummer.Text;
+
+                if (klant.IsGeldig())
+                {
+                    int ok = DatabaseOperations.ToevoegenKlant(klant);
+                    if (ok > 0)
+                    {
+                        MessageBox.Show("Klant is  toegevoegd!");
+
+
+                        Resetten();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Klant is niet toegevoegd!");
+
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(klant.Error, "Foutmelding", MessageBoxButton.OK);
+                }
+            }
+           
+
+       
+        private void Resetten()
+        {
+            txtFamilieNaam.Text = "";
+            txtVoorNaam.Text = "";
+            txtNummer.Text = "";
+            txtEmail.Text = "";
+
+
         }
     }
 }

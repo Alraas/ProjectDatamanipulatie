@@ -22,26 +22,23 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
 
         </Grid.RowDefinitions>
         <Label x:Name="lblNieuweKlant" Content="Nieuwe klant" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" FontSize="18"/>
-        <TextBox x:Name="txtKlantId"   materialDesign:HintAssist.Hint="Klant Id"
-                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        
         <TextBox x:Name="txtVoorNaam"   materialDesign:HintAssist.Hint="Voornaam"            
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtFamilieNaam"   materialDesign:HintAssist.Hint="Familie Naanm"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtNummer"   materialDesign:HintAssist.Hint="Gsm "
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtEmail"   materialDesign:HintAssist.Hint="Email"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Margin="5"/>
-        <Button x:Name="btnAanmaken" Content="Anmaken" Margin="5" Grid.Row="6" />
+                  VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
+        <Button x:Name="btnAanmaken" Content="Anmaken" Margin="5" Grid.Row="5" Click="btnAanmaken_Click" />
 
     </Grid>
 </Window>

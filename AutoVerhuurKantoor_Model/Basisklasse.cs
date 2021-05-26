@@ -7,42 +7,39 @@ using System.Threading.Tasks;
 
 namespace AutoVerhuurKantoor_Model
 {
-    public abstract class Basisklasse
+    public abstract class BasisKlasse : IDataErrorInfo
     {
-        public abstract class BasisKlasse : IDataErrorInfo
+
+        public abstract string this[string columnName] { get; }
+
+        public bool IsGeldig()
         {
-
-            public abstract string this[string columnName] { get; }
-
-            public bool IsGeldig()
-            {
-                return string.IsNullOrWhiteSpace(Error);
-
-            }
-            public string Error
-            {
-                get
-                {
-                    string foutmeldingen = "";
-
-                    foreach (var item in this.GetType().GetProperties()) //reflection 
-                    {
-                        if (item.CanRead)
-                        {
-                            string fout = this[item.Name];
-                            if (!string.IsNullOrWhiteSpace(fout))
-                            {
-                                foutmeldingen += fout + Environment.NewLine;
-                            }
-                        }
-                    }
-                    return foutmeldingen;
-                }
-            }
-
-
-
+            return string.IsNullOrWhiteSpace(Error);
 
         }
+        public string Error
+        {
+            get
+            {
+                string foutmeldingen = "";
+
+                foreach (var item in this.GetType().GetProperties()) //reflection 
+                {
+                    if (item.CanRead)
+                    {
+                        string fout = this[item.Name];
+                        if (!string.IsNullOrWhiteSpace(fout))
+                        {
+                            foutmeldingen += fout + Environment.NewLine;
+                        }
+                    }
+                }
+                return foutmeldingen;
+            }
+        }
+
+
+
+
     }
 }

@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AutoVerhuurKantoor_DAL;
+using AutoVerhuurKantoor_WPF;
 
 namespace AutoVerhuurKantoor
 {
@@ -23,5 +25,49 @@ namespace AutoVerhuurKantoor
         {
             InitializeComponent();
         }
+
+        private void btnAanmaken_Click(object sender, RoutedEventArgs e)
+        {
+            
+                Car auto = new Car();
+                auto.model = txtAutoMerk.Text;
+                auto.year = txtAutoJaar.Text;
+
+
+                if (auto.IsGeldig())
+                {
+                    int ok = DatabaseOperations.ToevoegenAuto(auto);
+                    if (ok > 0)
+                    {
+                        MessageBox.Show("Auto is  toegevoegd!");
+                       
+                       
+                        Resetten();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Auto is niet toegevoegd!");
+                    }
+                 }
+                 else
+                 {
+                    MessageBox.Show(auto.Error, "Foutmelding", MessageBoxButton.OK);
+                 }
+        }
+           
+
+            
+
+
+        
+        
+        private void Resetten()
+        {
+            txtAutoJaar.Text = "";
+            txtAutoMerk.Text = "";
+        }
     }
+        
 }
+

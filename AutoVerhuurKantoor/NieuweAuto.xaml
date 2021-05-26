@@ -20,21 +20,18 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             
 
         </Grid.RowDefinitions>
-        <Label x:Name="lblNieuweAuto" Content="Nieuwe klant" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" FontSize="18"/>
-        <TextBox x:Name="txtKlantId"   materialDesign:HintAssist.Hint="Auto Id"
-                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <Label x:Name="lblNieuweAuto" Content="Nieuwe auto" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" FontSize="18"/>
+        
         <TextBox x:Name="txtAutoMerk"   materialDesign:HintAssist.Hint="Auto Merk"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
         <TextBox x:Name="txtAutoJaar"   materialDesign:HintAssist.Hint="Auto Jaar"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                  VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
-        <Button x:Name="btnAanmaken" Content="Anmaken" Margin="5" Grid.Row="6" />
+                  VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+        <Button x:Name="btnAanmaken" Content="Anmaken" Margin="5" Grid.Row="3" Click="btnAanmaken_Click" />
 
 
     </Grid>
